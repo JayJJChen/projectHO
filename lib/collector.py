@@ -10,11 +10,16 @@ import tushare as ts
 from lib.util import six_digit_date_split
 from setting import data_path_root, stock_list_path
 
+# setting pro api, please use your own token
+# from lib.token import TOKEN
+# ts.set_token(TOKEN)
+PRO = ts.pro_api()
+
 
 def stock_list_down(path=stock_list_path):
     """downloading up-to-date stock list & basic info"""
     print("downloading stock list, path:", path)
-    df = ts.get_stock_basics()
+    df = PRO.stock_basic()
     df.to_csv(path)
     print("download finished")
     return None
@@ -82,14 +87,14 @@ def candlestick_chart_down(stock_id, info=None, start_date="latest", end_date=da
 
 
 if __name__ == "__main__":
-    # stock_list_down()
-    info = pd.read_csv(stock_list_path, dtype=str)
-    for c in info.code:
-        if int(info.loc[info.code == c, "timeToMarket"].values[0]) > 20050101:
-            continue
-        r = "err"
-        while r == "err":
-            r = candlestick_chart_down(c, info=info, start_date="2005-01-01", end_date="2008-01-01")
+    stock_list_down()
+    # info = pd.read_csv(stock_list_path, dtype=str)
+    # for c in info.code:
+    #     if int(info.loc[info.code == c, "timeToMarket"].values[0]) > 20050101:
+    #         continue
+    #     r = "err"
+    #     while r == "err":
+    #         r = candlestick_chart_down(c, info=info, start_date="2005-01-01", end_date="2008-01-01")
     # for c in info.code:
     #     candlestick_chart_down(stock_id, info=info, end_date="2015-01-01")
     # for c in info.code:

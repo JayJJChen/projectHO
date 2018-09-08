@@ -107,4 +107,5 @@ venv.bak/
 data/
 .idea/
 jupyter_workspace/
-token.py
+lib/token.py
+lib/tk.csv

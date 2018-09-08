@@ -106,3 +106,4 @@ venv.bak/
 # added by Jay
 data/
 .idea/
+jupyter_workspace/

@@ -107,3 +107,4 @@ venv.bak/
 data/
 .idea/
 jupyter_workspace/
+token.py

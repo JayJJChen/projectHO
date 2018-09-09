@@ -1,10 +1,10 @@
 import datetime
-import time
+
 import pandas as pd
 import tushare as ts
 
-from setting import split_span
 from lib.token import TOKEN
+from setting import split_span
 
 # setting pro api, please use your own token
 ts.set_token(TOKEN)
@@ -69,15 +69,8 @@ def hist_data_down(stock_id, start_date, end_date):
         try:
             d = PRO.daily(ts_code=stock_id, start_date=start, end_date=end)
             dfs.append(d)
-            time.sleep(1)
         except:
-            print("{} to {} download error".format(start, end))
-
+            raise RuntimeError("{} to {} download error".format(start, end))
     df = pd.concat(dfs, axis=0)
 
     return df
-
-# if __name__ == "__main__":
-# print(date_split("20020102", "20120105", 100))
-# df = hist_data_down("600419.SH", "20101010", "20180202")
-# df.to_csv("exp.csv", index=None)

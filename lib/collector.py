@@ -5,11 +5,10 @@ import os
 
 import pandas as pd
 import tushare as ts
-from tqdm import tqdm
 
-from setting import data_path_root, stock_list_path
 from lib.token import TOKEN
 from lib.util import hist_data_down
+from setting import data_path_root, stock_list_path
 
 # setting pro api, please use your own token
 ts.set_token(TOKEN)
@@ -57,7 +56,7 @@ def candlestick_chart_down(stock_id, info=None, start_date="latest", end_date=da
         # getting start/end date, no sanity check
         if start_date == "latest":
             if not exist:
-                print("stock_id {} not found in local storage, downloading from very beginning".format(stock_id))
+                # print("stock_id {} not found in local storage, downloading from very beginning".format(stock_id))
                 start_date = str(info.loc[info.ts_code == stock_id, 'list_date'].values[0])
             else:
                 start_date = (datetime.datetime.strptime(df.trade_date[0], "%Y%m%d")
@@ -78,13 +77,6 @@ def candlestick_chart_down(stock_id, info=None, start_date="latest", end_date=da
         return "success"
 
     except:
-        print("{} saving failed".format(stock_id))
         return "err"
 
 
-if __name__ == "__main__":
-    stock_list_down()
-    info = pd.read_csv(stock_list_path, dtype=str)
-    for c in tqdm(info.ts_code):
-        print("downloading", c)
-        candlestick_chart_down(c, info=info)

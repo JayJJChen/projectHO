@@ -17,10 +17,8 @@ PRO = ts.pro_api()
 
 def stock_list_down(path=stock_list_path):
     """downloading up-to-date stock list & basic info"""
-    print("downloading stock list, path:", path)
     df = PRO.stock_basic()
     df.to_csv(path)
-    print("download finished")
     return None
 
 
@@ -41,7 +39,7 @@ def candlestick_chart_down(stock_id, info=None, start_date="latest", end_date=da
 
     Returns
     -------
-
+    success or err flag
     """
     try:
         csv_path = os.path.join(data_path_root, stock_id + ".csv")

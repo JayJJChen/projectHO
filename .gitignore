@@ -105,8 +105,10 @@ venv.bak/
 
 # added by Jay
 data/
+data.bak/
 .idea/
 jupyter_workspace/
 lib/token.py
 lib/tk.csv
 tk.csv
+log/*

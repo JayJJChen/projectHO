@@ -81,12 +81,14 @@ def hist_data_down(stock_id, start_date, end_date):
 
 def show_candlestick(df):
     """show daily candlestick chart"""
-    fig = plt.figure(figsize=(18, 4))
+    df = df.iloc[::-1]
+    fig = plt.figure(figsize=(15, 3))
     ax = fig.add_subplot(1, 1, 1)
-    ax.set_xticks(range(0, len(df['trade_date']), 5))
-    ax.set_xticklabels(list(df.trade_date)[::5])
+    ticks_gap = round(len(df) / 11)
+    ax.set_xticks(range(0, len(df['trade_date']), ticks_gap))
+    ax.set_xticklabels(list(df.trade_date)[::ticks_gap])
     mpl_finance.candlestick2_ochl(ax, df['open'], df['close'], df['high'], df['low'],
-                                  width=0.3, colorup='red', colordown='green')
+                                  width=0.3, colorup='red', colordown='green', alpha=1.)
     plt.show()
 
 

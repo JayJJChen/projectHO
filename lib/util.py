@@ -80,6 +80,7 @@ def hist_data_down(stock_id, start_date, end_date):
 
 
 def show_candlestick(df):
+    """show daily candlestick chart"""
     fig = plt.figure(figsize=(18, 4))
     ax = fig.add_subplot(1, 1, 1)
     ax.set_xticks(range(0, len(df['trade_date']), 5))
@@ -90,6 +91,7 @@ def show_candlestick(df):
 
 
 def compare(df1, df2):
+    """compare 2 dfs with l1 diff"""
     cols = ['open', 'high', 'low', 'close']  # 'ts_code', 'trade_date', 'pct_change'
     df1 = df1[cols]
     df2 = df2[cols]

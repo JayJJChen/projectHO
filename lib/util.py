@@ -1,5 +1,8 @@
 import datetime
 
+import matplotlib.pyplot as plt
+import mpl_finance
+import numpy as np
 import pandas as pd
 import tushare as ts
 
@@ -74,3 +77,25 @@ def hist_data_down(stock_id, start_date, end_date):
     df = pd.concat(dfs, axis=0)
 
     return df
+
+
+def show_candlestick(df):
+    fig = plt.figure(figsize=(18, 4))
+    ax = fig.add_subplot(1, 1, 1)
+    ax.set_xticks(range(0, len(df['trade_date']), 5))
+    ax.set_xticklabels(list(df.trade_date)[::5])
+    mpl_finance.candlestick2_ochl(ax, df['open'], df['close'], df['high'], df['low'],
+                                  width=0.3, colorup='red', colordown='green')
+    plt.show()
+
+
+def compare(df1, df2):
+    cols = ['open', 'high', 'low', 'close']  # 'ts_code', 'trade_date', 'pct_change'
+    df1 = df1[cols]
+    df2 = df2[cols]
+    arr1 = np.array(df1)
+    arr2 = np.array(df2)
+    arr1 = (arr1 - np.min(arr1)) / (np.max(arr1) - np.min(arr1))
+    arr2 = (arr2 - np.min(arr2)) / (np.max(arr2) - np.min(arr2))
+    diff = np.sum(np.abs(np.subtract(arr1, arr2)))
+    return diff

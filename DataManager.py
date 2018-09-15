@@ -16,7 +16,7 @@ class DataManager:
         self.data_df = None
         self.data_dict = None
 
-    def load_data(self, start_date=0):
+    def load_data(self, start_date=20050101):
         """method to load all existing stock data into memory, starting from start_date.
         as self.data_df and self.data_dict. df contains all data in 1 df; dict key is ts_code, value df"""
         assert len(str(start_date)) == 8, "please enter yyyymmdd format date"

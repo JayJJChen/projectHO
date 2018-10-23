@@ -9,7 +9,7 @@ import tushare as ts
 from lib.token import TOKEN
 from setting import split_span
 
-# setting pro api, please use your own token
+# setting pro api, please use your own token, back for work test
 ts.set_token(TOKEN)
 PRO = ts.pro_api()
 
